@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 420" width="400" height="420">
+  <defs>
+    <!-- Plush fur: wobbly edges + fine noise -->
+    <filter id="fuzz" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" result="wobble"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="8" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 -0.08" result="grainA"/>
+      <feComposite in="grainA" in2="wobble" operator="in" result="grainIn"/>
+      <feMerge><feMergeNode in="wobble"/><feMergeNode in="grainIn"/></feMerge>
+    </filter>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="1" seed="5" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2"/>
+    </filter>
+    <radialGradient id="fur" cx="45%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#D2702E"/>
+      <stop offset="0.6" stop-color="#B2521C"/>
+      <stop offset="1" stop-color="#8A3B12"/>
+    </radialGradient>
+    <radialGradient id="furDark" cx="50%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#B85A22"/>
+      <stop offset="1" stop-color="#7E3410"/>
+    </radialGradient>
+    <radialGradient id="skin" cx="45%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#F6DCC0"/>
+      <stop offset="1" stop-color="#DDB18A"/>
+    </radialGradient>
+    <radialGradient id="palm" cx="45%" cy="40%" r="70%">
+      <stop offset="0" stop-color="#E8B68C"/>
+      <stop offset="1" stop-color="#C98D62"/>
+    </radialGradient>
+    <radialGradient id="eyeRing" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#F3E6D3"/>
+      <stop offset="1" stop-color="#D8C2A6"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ground shadow -->
+  <ellipse cx="200" cy="395" rx="150" ry="14" fill="#000" opacity="0.18"/>
+
+  <g filter="url(#fuzz)">
+    <!-- left arm (behind body) -->
+    <path d="M132 198 C 88 212, 50 275, 46 335 C 45 356, 80 360, 86 342 C 92 296, 112 258, 152 232 Z" fill="url(#furDark)"/>
+    <!-- right arm -->
+
+    <!-- body -->
+    <path d="M200 175 C 270 175, 300 235, 298 300 C 296 350, 260 378, 200 378 C 140 378, 104 350, 102 300 C 100 235, 130 175, 200 175 Z" fill="url(#fur)"/>
+
+    <!-- arm shadows on the body -->
+    <path d="M150 232 C 118 262, 104 300, 100 345" fill="none" stroke="#6E2D0D" stroke-width="10" opacity="0.35" stroke-linecap="round"/>
+
+    <!-- legs -->
+    <path d="M110 330 C 90 350, 95 385, 135 388 C 170 390, 185 370, 175 345 Z" fill="url(#furDark)"/>
+    <path d="M290 330 C 310 350, 305 385, 265 388 C 230 390, 215 370, 225 345 Z" fill="url(#furDark)"/>
+
+    <!-- head fur with tufts -->
+    <path d="M200 48 L 210 34 L 214 52 L 228 40 L 228 58
+             C 268 66, 285 100, 283 135 C 281 178, 248 205, 200 205
+             C 152 205, 119 178, 117 135 C 115 100, 132 66, 172 58
+             L 172 40 L 186 52 L 190 34 Z" fill="url(#fur)"/>
+
+    <!-- ears -->
+    <circle cx="116" cy="132" r="20" fill="url(#furDark)"/>
+    <circle cx="284" cy="132" r="20" fill="url(#furDark)"/>
+  </g>
+
+  <!-- ear insides -->
+  <g filter="url(#soft)">
+    <circle cx="117" cy="133" r="11" fill="url(#skin)"/>
+    <circle cx="283" cy="133" r="11" fill="url(#skin)"/>
+  </g>
+
+  <!-- hands and feet (felt-like, smoother) -->
+  <g filter="url(#soft)">
+    <path d="M40 336 C 28 350, 32 374, 52 380 C 68 385, 90 380, 94 364 C 97 350, 86 336, 70 335 Z" fill="url(#palm)"/>
+    <path d="M50 364 Q 60 372 72 370 M 56 352 Q 66 360 80 357" fill="none" stroke="#B87A50" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="128" cy="388" rx="34" ry="16" fill="url(#palm)"/>
+    <ellipse cx="272" cy="388" rx="34" ry="16" fill="url(#palm)"/>
+  </g>
+
+  <!-- face -->
+  <g filter="url(#soft)">
+    <!-- forehead / brow patch -->
+    <path d="M150 104 C 160 84, 240 84, 250 104 C 238 96, 162 96, 150 104 Z" fill="#9E4517" opacity="0.6"/>
+    <!-- muzzle -->
+    <path d="M200 130 C 240 130, 252 158, 246 176 C 240 196, 222 202, 200 202 C 178 202, 160 196, 154 176 C 148 158, 160 130, 200 130 Z" fill="url(#skin)"/>
+    <!-- eye rings -->
+    <circle cx="170" cy="118" r="22" fill="url(#eyeRing)"/>
+    <circle cx="230" cy="118" r="22" fill="url(#eyeRing)"/>
+  </g>
+  <!-- eyes (crisp) -->
+  <circle cx="170" cy="118" r="14" fill="#EFE2CF" stroke="#C8AE8E" stroke-width="2"/>
+  <circle cx="230" cy="118" r="14" fill="#EFE2CF" stroke="#C8AE8E" stroke-width="2"/>
+  <circle cx="172" cy="117" r="8.5" fill="#24150E"/>
+  <circle cx="232" cy="117" r="8.5" fill="#24150E"/>
+  <circle cx="175" cy="113" r="2.8" fill="#fff"/>
+  <circle cx="235" cy="113" r="2.8" fill="#fff"/>
+
+  <!-- nose -->
+  <path d="M188 150 C 192 140, 208 140, 212 150 C 214 158, 186 158, 188 150 Z" fill="#D7A57D"/>
+  <circle cx="195" cy="152" r="2.4" fill="#8E5A3A"/>
+  <circle cx="205" cy="152" r="2.4" fill="#8E5A3A"/>
+  <!-- smile -->
+  <path d="M178 172 C 186 196, 214 196, 222 172 Z" fill="#6B3420"/>
+  <path d="M188 186 C 194 192, 206 192, 212 186 C 206 182, 194 182, 188 186 Z" fill="#E07A6E"/>
+  <path d="M178 172 C 186 196, 214 196, 222 172" fill="none" stroke="#8E5A3A" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- belly highlight -->
+  <ellipse cx="200" cy="290" rx="52" ry="58" fill="#D97A36" opacity="0.18" filter="url(#soft)"/>
+</svg>

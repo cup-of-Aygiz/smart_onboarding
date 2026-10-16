@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 70" width="200" height="70">
+  <defs>
+    <!-- Plush fur: wobbly edges + fine noise -->
+    <filter id="fuzz" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" result="wobble"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="8" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 -0.08" result="grainA"/>
+      <feComposite in="grainA" in2="wobble" operator="in" result="grainIn"/>
+      <feMerge><feMergeNode in="wobble"/><feMergeNode in="grainIn"/></feMerge>
+    </filter>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="1" seed="5" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2"/>
+    </filter>
+    <radialGradient id="fur" cx="45%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#D2702E"/>
+      <stop offset="0.6" stop-color="#B2521C"/>
+      <stop offset="1" stop-color="#8A3B12"/>
+    </radialGradient>
+    <radialGradient id="furDark" cx="50%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#B85A22"/>
+      <stop offset="1" stop-color="#7E3410"/>
+    </radialGradient>
+    <radialGradient id="skin" cx="45%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#F6DCC0"/>
+      <stop offset="1" stop-color="#DDB18A"/>
+    </radialGradient>
+    <radialGradient id="palm" cx="45%" cy="40%" r="70%">
+      <stop offset="0" stop-color="#E8B68C"/>
+      <stop offset="1" stop-color="#C98D62"/>
+    </radialGradient>
+    <radialGradient id="eyeRing" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#F3E6D3"/>
+      <stop offset="1" stop-color="#D8C2A6"/>
+    </radialGradient>
+  </defs>
+  <!-- Shoulder at (12, 35); the arm points along +x. -->
+  <path d="M4 35 C 4 18, 22 16, 40 20 C 80 26, 120 26, 150 24 C 162 23, 166 47, 150 46 C 120 44, 80 44, 40 50 C 22 54, 4 52, 4 35 Z" fill="url(#furDark)" filter="url(#fuzz)"/>
+  <g transform="translate(168 35) rotate(90) scale(1.25)">
+    <path d="M-15 8 C -18 -16, -15 -42, 0 -45 C 15 -42, 18 -16, 15 8 C 9 18, -9 18, -15 8 Z" fill="url(#palm)"/>
+    <path d="M-7 -38 L -7 -20 M 0 -41 L 0 -20 M 7 -38 L 7 -20" stroke="#B87A50" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-8 2 Q 0 6 8 2" fill="none" stroke="#B87A50" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="-19" cy="-2" rx="6" ry="12" transform="rotate(-38 -19 -2)" fill="url(#palm)"/>
+  </g>
+</svg>

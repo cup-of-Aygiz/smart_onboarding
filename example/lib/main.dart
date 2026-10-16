@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_onboarding/smart_onboarding.dart';
 
+import 'mascot.dart';
+
 void main() => runApp(const ExampleApp());
 
 /// Target ids in one place to avoid typos.
@@ -49,7 +51,11 @@ class _ExampleAppState extends State<ExampleApp> {
       // The only integration point: wrap the navigator.
       builder: SmartOnboarding.builder(
         controller: onboarding,
-        theme: const OnboardingTheme(skipLabel: 'Пропустить'),
+        theme: const OnboardingTheme(
+          skipLabel: 'Пропустить',
+          // Room for the mascot in steps without content.
+          arrowOnlyLength: 170,
+        ),
       ),
       home: HomePage(onboarding: onboarding),
     );
@@ -181,7 +187,8 @@ class _HomePageState extends State<HomePage> {
     // Centered welcome without targets.
     OnboardingStep(
       id: 'welcome',
-      content: OnboardingContent.tooltip(
+      // Nothing highlighted: the mascot dances.
+      content: Mascot.dancing(
         title: 'Привет!',
         text: 'Покажу, что тут есть. Шаг закроется сам через 4 секунды.',
       ),
@@ -196,7 +203,8 @@ class _HomePageState extends State<HomePage> {
           shape: const HighlightShape.circle(),
         ),
       ],
-      content: OnboardingContent.tooltip(
+      // The mascot points at the highlighted button.
+      content: Mascot.pointing(
         title: 'Поиск',
         text: 'Нажми на лупу — кнопка сработает и шаг засчитается.',
         showNext: false,
@@ -207,10 +215,10 @@ class _HomePageState extends State<HomePage> {
     OnboardingStep(
       id: 'pair',
       highlights: [
-        OnboardingHighlight.id(Ids.card),
+        OnboardingHighlight.id(Ids.card, arrow: const OnboardingArrow.curved()),
         OnboardingHighlight.id(Ids.fab, shape: const HighlightShape.circle()),
       ],
-      content: OnboardingContent.tooltip(
+      content: Mascot.pointing(
         text: 'Карточка и кнопка подсвечены одновременно.',
       ),
       advance: const StepAdvance.timer(
@@ -224,11 +232,11 @@ class _HomePageState extends State<HomePage> {
       groups: [
         HighlightGroup(
           highlights: [OnboardingHighlight.id(Ids.tabHome)],
-          content: OnboardingContent.tooltip(text: 'Главная'),
+          content: Mascot.pointing(text: 'Главная'),
         ),
         HighlightGroup(
           highlights: [OnboardingHighlight.id(Ids.tabFeed)],
-          content: OnboardingContent.tooltip(text: 'Лента'),
+          content: Mascot.pointing(text: 'Лента'),
         ),
         HighlightGroup(
           highlights: [
@@ -258,7 +266,8 @@ class _HomePageState extends State<HomePage> {
         OnboardingHighlight.id(
           Ids.profile,
           shape: const HighlightShape.circle(),
-          arrow: const OnboardingArrow.curved(dashed: true),
+          // No content, only the mascot pointing at the button.
+          arrow: Mascot.pointer,
         ),
       ],
       advance: const StepAdvance.timer(
@@ -270,7 +279,7 @@ class _HomePageState extends State<HomePage> {
     OnboardingStep(
       id: 'deep',
       highlights: [OnboardingHighlight.id(Ids.deepItem)],
-      content: OnboardingContent.tooltip(
+      content: Mascot.pointing(
         text: 'Список прокрутился сам. Нажми на элемент — откроется экран.',
         showNext: false,
       ),
@@ -279,11 +288,16 @@ class _HomePageState extends State<HomePage> {
     OnboardingStep(
       id: 'details',
       highlights: [OnboardingHighlight.id(Ids.details)],
-      content: OnboardingContent.tooltip(
+      content: Mascot.pointing(
         title: 'Другой экран',
         text: 'Онбординг дождался навигации.',
       ),
       advance: const StepAdvance(tap: TapToAdvance.anywhere),
+    ),
+    OnboardingStep(
+      id: 'finish',
+      content: Mascot.dancing(title: 'Готово!', text: 'Теперь ты всё знаешь.'),
+      advance: const StepAdvance.tap(),
     ),
   ];
 
