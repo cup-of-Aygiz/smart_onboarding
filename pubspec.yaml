@@ -1,0 +1,20 @@
+name: smart_onboarding
+description: "Spotlight onboarding for Flutter: highlights widgets by id or GlobalKey, dims and blurs everything else, auto-positions content and draws animated arrows."
+version: 0.1.0
+homepage: https://github.com/cup-of-Aygiz/smart_onboarding
+repository: https://github.com/cup-of-Aygiz/smart_onboarding
+
+environment:
+  sdk: ^3.12.2
+  flutter: ">=3.32.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
